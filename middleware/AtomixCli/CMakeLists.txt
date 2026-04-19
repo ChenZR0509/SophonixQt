@@ -25,12 +25,18 @@ find_package(Qt6 REQUIRED COMPONENTS
 #2、添加CPP源码
 add_library(AtomixCli STATIC
   atomixCli.cpp
-  atomixCli.h)
+  atomixCli.h
+  )
 #3、添加UI源码
 qt_add_qml_module(AtomixUiCli
     URI Atomix.Ui.Cli
     VERSION 1.0
     QML_FILES
+    qml/component/CliBackCorner.qml
+    qml/component/CliSurface.qml
+    qml/component/CliBackground.qml
+    qml/component/CliOutput.qml
+    qml/component/CliInput.qml
     qml/AtomixCli.qml
 )
 #4、链接相关静态库

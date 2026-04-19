@@ -1,34 +1,35 @@
 /**
- * @file atomixUi.h
- * @brief atomixCore内核接口文件
+ * @file uiGlobalData.h
+ * @brief ui全局数据
  * @author ChenZR
+ * @details
  */
-#ifndef __ATOMIXUI_H
-#define __ATOMIXUI_H
+#ifndef __UIGLOBALDATA_H
+#define __UIGLOBALDATA_H
 /* Includes" "------------------------------------------------------------------*/
-#include "colorScheme.h"
-#include "sizeScheme.h"
-#include "uiGlobalData.h"
+#include "uiDataType.h"
 /* Includes< >------------------------------------------------------------------*/
 #include <QObject>
-#include <QQmlContext>
-#include <QQmlApplicationEngine>
 /* NameSpace------------------------------------------------------------------*/
 namespace AtomixUi
 {
-class Ui: public QObject{
+class UiGlobal : public QObject {
     Q_OBJECT
 public:
     /* DataType Definition------------------------------------------------------------------*/
     /* Variable Declare------------------------------------------------------------------*/
     /* Functions Declare------------------------------------------------------------------*/
-    explicit Ui(QQmlApplicationEngine* engine, QObject* parent = nullptr);
-    ~Ui(void);
+    explicit UiGlobal(QObject* parent = nullptr);
+    ~UiGlobal(void);
 private:
-    QQmlApplicationEngine* qmlEngine;
-    Color* uiColor;
-    Size* uiSize;
-    UiGlobal* uiGlobal;
+    UiDataType::FocusState focusState = UiDataType::MenuSelect;
+private:
+    Q_PROPERTY(UiDataType::FocusState focusState READ getFocusState WRITE setFocusState NOTIFY focusStateChanged FINAL)
+public:
+    UiDataType::FocusState getFocusState() const;
+    void setFocusState(const UiDataType::FocusState &newFocusState);
+signals:
+    void focusStateChanged();
 protected:
 };
 }

@@ -1,49 +1,42 @@
 /**
- * @file AtomixCli.qml
- * @brief 终端
+ * @file SurfaceBoard
+ * @brief 终端内容显示
  * @author ChenZR
  * @details
  */
 /* Import" "------------------------------------------------------------------*/
-import "component"
 import Atomix.Ui.Basic 1.0
-import AtomixUi.DataType 1.0
 /* Import< >------------------------------------------------------------------*/
 import QtQuick
-import QtQuick.Shapes
 import QtQuick.Controls
 import QtQuick.Controls.Basic
 /* Root ----------------------------------------------------------------------*/
-Control {
+FocusScope {
   id: root
   /* Property Definition------------------------------------------------------------------*/
-  property int viewState: UiDataType.ViewExit   //组件状态
+  property bool inputMode: true
   /* Property Setting------------------------------------------------------------------*/
-  padding: 3*uiSize.mediumConner
-  background: CliBackground{
-    id: cliBackground
-    viewState: root.viewState
-    onEnterFinished: {
-      cliContent.enter()
+  visible: false
+  focus: true
+  /* Object Definition------------------------------------------------------------------*/
+  Column {
+    anchors.fill: parent
+    spacing: 4
+    CliOutput {
+      id: cliOutput
+      width: root.width
+    }
+    CliInput {
+      id: cliInput
+      width: root.width
+      onInputCommand: cmd => {
+        cliOutput.addCommand("ChenZR",cmd,true)
+      }
     }
   }
-  contentItem: CliSurface{
-    id: cliContent
-    width: availableWidth
-    height: availableHeight
-  }
-  /* Object Definition------------------------------------------------------------------*/
   /* Function Definition------------------------------------------------------------------*/
-  // onEnter 入场
-  function onEnter() {
-    root.viewState = UiDataType.ViewEnter
-    root.forceActiveFocus()
-  }
-  function onExit() {
-    root.viewState = UiDataType.ViewExit
-  }
-  function onDuplicate() {
-    root.viewState = UiDataType.ViewDuplicate
+  function enter(){
+    root.visible = true
   }
   /* Signal Definition------------------------------------------------------------------*/
   /* Slots Definition------------------------------------------------------------------*/

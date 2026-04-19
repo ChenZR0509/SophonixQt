@@ -28,7 +28,11 @@ add_library(AtomixUi STATIC
       src/colorScheme.cpp
       src/sizeScheme.cpp
       include/colorScheme.h
-      include/sizeScheme.h)
+      include/sizeScheme.h
+      include/uiDataType.h
+      include/uiGlobalData.h
+      src/uiGlobalData.cpp
+    )
 #3、添加UI源码
 qt_add_qml_module(AtomixUiBasic
     URI Atomix.Ui.Basic

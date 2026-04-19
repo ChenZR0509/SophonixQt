@@ -5,7 +5,9 @@
   */
 /* Import" "------------------------------------------------------------------*/
 import "../prototype"
+import Atomix.Ui.Cli 1.0
 import Atomix.Ui.Basic 1.0
+import AtomixUi.DataType 1.0
 /* Import< >------------------------------------------------------------------*/
 import QtQuick
 import QtQuick.Controls
@@ -15,7 +17,7 @@ import QtMultimedia
 Control{
   id: root
   /* Property Definition------------------------------------------------------------------*/
-  property var menuState: homeButton            //顶部菜单栏按键状态
+  property var menuState: homeButton                  //顶部菜单栏按键状态
   readonly property var windowMenu: new Map([ // windowMenu 窗口菜单索引
     ["home", homeView],                       // homeView 主窗口
     ["shell", shellView],                     // shellView 终端窗口
@@ -459,8 +461,7 @@ Control{
       }
       Component {
         id: shellView
-        Rectangle{
-          color: uiColor.background
+        AtomixCli{
         }
       }
       Component {
@@ -605,12 +606,12 @@ Control{
   }
   //3、键盘监听槽函数
   Keys.onPressed: function(event) {
-    if (event.key === Qt.Key_Left)
+    if (event.key === Qt.Key_Left && uiGlobal.focusState === UiDataType.MenuSelect)
     {
       selectPrevMenu()
       event.accepted = true
     }
-    else if (event.key === Qt.Key_Right)
+    else if (event.key === Qt.Key_Right && uiGlobal.focusState === UiDataType.MenuSelect)
     {
       selectNextMenu()
       event.accepted = true
